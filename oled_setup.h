@@ -74,9 +74,9 @@ class Oled:public U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C{
                         }
                     }
                     drawStr(text_inf[a].xtmp,text_inf[a].start_y,text_inf[a].text.c_str());
-                    sendBuffer();
                     delay(1);
                 }
+                sendBuffer();
             }
         }
         void pic(const unsigned char input_pic[],int start_x=0,int start_y=0){
