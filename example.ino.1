@@ -1,0 +1,35 @@
+#include <Wire.h>
+
+const int triggerPin = D1;  // 超聲波感測器的觸發引腳連接到D1
+const int echoPin = D2;     // 超聲波感測器的回聲引腳連接到D2
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(triggerPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+}
+
+void loop() {
+  long duration, distance;
+
+  // 產生一個10微秒的脈衝以觸發超聲波模塊
+  digitalWrite(triggerPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(triggerPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(triggerPin, LOW);
+
+  // 測量回聲引腳的脈衝持續時間
+  duration = pulseIn(echoPin, HIGH);
+
+  // 計算距離（公分）
+  distance = duration * 0.034 / 2;
+
+  // 輸出距離到串口
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  // 延遲一段時間，以免太頻繁地進行測量
+  delay(1000);
+}
